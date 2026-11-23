@@ -9,7 +9,6 @@ LSPosed module (modern **libxposed API 102**) that lets **Samsung SmartCapture**
 device (developed & tested on a Galaxy S26 Ultra, SM-S948B, Android 17 / One UI):
 
 - **Screen recording** from the Quick Settings tile directly on the lock screen — no PIN asked
-- **AI select** (Smart Select) unblocked — no more *"blocked by security policy"* toast
 
 ## How it works
 
@@ -18,7 +17,7 @@ unlocked and that no Knox/MDM policy forbids capture:
 
 | Hook | Effect |
 |---|---|
-| `KeyguardManager#isKeyguardLocked()` / `isDeviceLocked()` → `false` | unblocks AI-select validation and stops the recorder service from deferring until unlock |
+| `KeyguardManager#isKeyguardLocked()` / `isDeviceLocked()` → `false` | stops the recorder service from deferring until unlock |
 | `TileService#isLocked()` → `false` | the Quick Settings tile no longer calls `unlockAndRun()` (the PIN prompt) on the lock screen |
 | `DeviceUtils#isRestrictedByMdm(...)` → `false` | ignores Knox `RestrictionPolicy3` (`isScreenCaptureEnabled`, `isSmartClipModeAllowed`, …) |
 | `DeviceUtils#isKeyguardEnabled/isKeyguardLocked`, `CommonUtil#isDeviceLocked` → `false` | keyguard helpers report "unlocked" |
