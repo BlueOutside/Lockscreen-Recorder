@@ -1,0 +1,57 @@
+# --- Gradle / build ---
+.gradle/
+.build/
+build/
+app/build/
+local.properties
+artifacts/
+captures/
+.navigation/
+
+# --- IDE ---
+.idea/
+.vscode/
+*.iml
+*.iws
+
+# --- Signing material (never commit) ---
+.signing/
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pem
+.env
+.env.*
+
+# --- Build outputs / binaries ---
+*.apk
+*.apks
+*.aab
+*.idsig
+*.log
+*.class
+*.dex
+*.hprof
+*.heapdump
+*.mp4
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+*.bak
+
+# --- Local reverse-engineering artifacts ---
+# Samsung APKs and decompiled sources are proprietary: keep them local, never commit.
+apks/
+decompiled/
+device-db/
+private/
+analysis-inputs/
+
+# --- Local tooling (jadx, gradle dist, api sources) — fetched on demand ---
+# see docs/reverse-engineering.md
+tools/

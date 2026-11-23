@@ -1,0 +1,49 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'dev.denver.lockscreenrecorder'
+    compileSdk 37
+
+    defaultConfig {
+        applicationId 'dev.denver.lockscreenrecorder'
+        minSdk 26
+        targetSdk 37
+        versionCode 1
+        versionName '1.0'
+    }
+
+    signingConfigs {
+        release {
+            // Local keystore, never committed (.gitignore: *.jks, .signing/).
+            // Override via env vars if needed: LSR_KEYSTORE, LSR_ALIAS, LSR_STORE_PASS, LSR_KEY_PASS
+            // Generate a local keystore once:
+            //   keytool -genkeypair -keystore .signing/lockscreen-recorder.jks \
+            //     -alias lockscreen -keyalg RSA -keysize 2048 -validity 10000 \
+            //     -storepass android -keypass android -dname "CN=Lockscreen Recorder"
+            def ks = System.getenv('LSR_KEYSTORE') ?: "${rootDir}/.signing/lockscreen-recorder.jks"
+            storeFile file(ks)
+            storePassword System.getenv('LSR_STORE_PASS') ?: 'android'
+            keyAlias System.getenv('LSR_ALIAS') ?: 'lockscreen'
+            keyPassword System.getenv('LSR_KEY_PASS') ?: 'android'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    compileOnly 'io.github.libxposed:api:102.0.0'
+    compileOnly 'androidx.annotation:annotation:1.9.1'
+}
